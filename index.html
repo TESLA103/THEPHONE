@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Позвонить</title>
-  <script src="https://b24-fe6td4.bitrix24.ru/rest/1/fgdijqzj256eljf3/"></script>
   <style>
     body {
       font-family: sans-serif;
@@ -29,18 +28,23 @@
 </head>
 <body>
   <button onclick="openDialer()">📞 Набрать номер</button>
-
+https://github.com/TESLA103/THEPHONE/blob/main/index.html
   <script>
-    BX24.init(function () {
-      console.log("Bitrix24 initialized");
+    BX24.init(() => {
+      console.log("Bitrix24 API инициализирован");
     });
 
     function openDialer() {
-      if (typeof BXIM !== 'undefined' && typeof BXIM.phoneCallPanel === 'function') {
-        BXIM.phoneCallPanel();
-      } else {
-        alert("Телефония недоступна. Проверьте настройки.");
-      }
+      const number = prompt("Введите номер телефона для звонка:");
+      if (!number) return;
+
+      BX24.callMethod('voximplant.call', { PHONE_NUMBER: number }, function(result) {
+        if (result.error()) {
+          alert("Ошибка звонка: " + result.error());
+        } else {
+          alert("Звонок инициирован на номер: " + number);
+        }
+      });
     }
   </script>
 </body>
