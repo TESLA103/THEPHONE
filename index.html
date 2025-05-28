@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<iframe src="https://yourdomain.com/index.html" width="100%" height="100" style="border:0;"></iframe>
+<head>
+  <meta charset="UTF-8">
+  <title>Позвонить</title>
+  <script src="https://api.bitrix24.com/api/v1/"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 20px 40px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="openDialer()">📞 Набрать номер</button>
+
+  <script>
+    BX24.init(function() {
+      // Инициализация завершена
+    });
+
+    function openDialer() {
+      if (typeof BXIM !== 'undefined' && BXIM.phoneCallPanel) {
+        BXIM.phoneCallPanel();
+      } else {
+        alert("Телефония недоступна. Убедитесь, что она включена в вашем Bitrix24.");
+      }
+    }
+  </script>
+</body>
+</html>
