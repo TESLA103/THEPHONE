@@ -28,8 +28,9 @@
 </head>
 <body>
   <button onclick="openDialer()">📞 Набрать номер</button>
-https://github.com/TESLA103/THEPHONE/blob/main/index.html
+
   <script>
+    // Дождёмся загрузки Bitrix24 JS API (он уже есть в контексте CRM)
     BX24.init(() => {
       console.log("Bitrix24 API инициализирован");
     });
@@ -38,13 +39,18 @@ https://github.com/TESLA103/THEPHONE/blob/main/index.html
       const number = prompt("Введите номер телефона для звонка:");
       if (!number) return;
 
-      BX24.callMethod('voximplant.call', { PHONE_NUMBER: number }, function(result) {
-        if (result.error()) {
-          alert("Ошибка звонка: " + result.error());
-        } else {
-          alert("Звонок инициирован на номер: " + number);
+      // Правильный вызов телефонии через REST JS API
+      BX24.callMethod(
+        'voximplant.call',
+        { PHONE_NUMBER: number },
+        (result) => {
+          if (result.error()) {
+            alert("Ошибка звонка: " + result.error());
+          } else {
+            alert("Звонок инициирован на номер: " + number);
+          }
         }
-      });
+      );
     }
   </script>
 </body>
